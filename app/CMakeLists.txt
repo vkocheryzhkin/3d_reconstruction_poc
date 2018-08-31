@@ -5,6 +5,12 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+
+add_library( libopenMVG_ceres STATIC IMPORTED )
+set_target_properties( libopenMVG_ceres
+                           PROPERTIES
+                           IMPORTED_LOCATION ${OPENMVG_ROOT}/lib/libopenMVG_ceres.a )
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -38,6 +44,8 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries( # Specifies the target library.
                        native-lib
+
+                       libopenMVG_ceres
 
                        # Links the target library to the log library
                        # included in the NDK.
