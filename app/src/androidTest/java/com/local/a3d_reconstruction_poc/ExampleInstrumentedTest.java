@@ -7,6 +7,9 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import static org.junit.Assert.*;
 
 /**
@@ -22,5 +25,18 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.local.a3d_reconstruction_poc", appContext.getPackageName());
+    }
+
+    @Test
+    public void readImage() throws IOException {
+        Context testContext = InstrumentationRegistry.getInstrumentation().getContext();
+        InputStream testInput = testContext.getAssets().open("Ace_0.png");
+    }
+
+    @Test
+    public void createReconstructor(){
+        Context testContext = InstrumentationRegistry.getInstrumentation().getContext();
+        Reconstructor r = new Reconstructor(testContext.getAssets());
+        r.match("Ace_0.png", "Ace_1.png");
     }
 }

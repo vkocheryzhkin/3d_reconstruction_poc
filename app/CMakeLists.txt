@@ -6,10 +6,35 @@
 cmake_minimum_required(VERSION 3.4.1)
 
 
-add_library( libopenMVG_ceres STATIC IMPORTED )
-set_target_properties( libopenMVG_ceres
-                           PROPERTIES
-                           IMPORTED_LOCATION ${OPENMVG_ROOT}/lib/libopenMVG_ceres.a )
+#add_library( libopenMVG_ceres STATIC IMPORTED )
+#set_target_properties(libopenMVG_ceres PROPERTIES IMPORTED_LOCATION
+#    $ENV{OPENMVG_ROOT}/lib/libopenMVG_ceres.a )
+
+add_library( libopenMVG_image STATIC IMPORTED )
+set_target_properties(libopenMVG_image PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_image.a )
+
+add_library( libopenMVG_features STATIC IMPORTED )
+set_target_properties(libopenMVG_features PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_features.a )
+
+add_library( libopenMVG_matching STATIC IMPORTED )
+set_target_properties(libopenMVG_matching PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_matching.a )
+
+add_library( libopenMVG_stlplus STATIC IMPORTED )
+set_target_properties(libopenMVG_stlplus PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_stlplus.a )
+
+add_library( libvlsift STATIC IMPORTED )
+set_target_properties(libvlsift PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libvlsift.a )
+
+
+include_directories($ENV{OPENMVG_ROOT}/include)
+include_directories($ENV{OPENMVG_ROOT}/include/openMVG/third_party/eigen)
+include_directories($ENV{OPENMVG_ROOT}/include/openMVG/third_party/stlplus3)
+
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -45,7 +70,13 @@ find_library( # Sets the name of the path variable.
 target_link_libraries( # Specifies the target library.
                        native-lib
 
-                       libopenMVG_ceres
+                       android
+
+                       libopenMVG_image
+                       libopenMVG_features
+                       libopenMVG_matching
+                       libopenMVG_stlplus
+                       libvlsift
 
                        # Links the target library to the log library
                        # included in the NDK.
