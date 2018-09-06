@@ -1,12 +1,12 @@
 #include <jni.h>
 #include <string>
 #include "openMVG/image/image_io.hpp"
-#include "openMVG/image/image_concat.hpp"
-#include "openMVG/features/akaze/image_describer_akaze.hpp"
-#include "openMVG/features/sift/SIFT_Anatomy_Image_Describer.hpp"
-#include "openMVG/features/svg_features.hpp"
-#include "openMVG/matching/regions_matcher.hpp"
-#include "openMVG/matching/svg_matches.hpp"
+//#include "openMVG/image/image_concat.hpp"
+//#include "openMVG/features/akaze/image_describer_akaze.hpp"
+//#include "openMVG/features/sift/SIFT_Anatomy_Image_Describer.hpp"
+//#include "openMVG/features/svg_features.hpp"
+//#include "openMVG/matching/regions_matcher.hpp"
+//#include "openMVG/matching/svg_matches.hpp"
 
 #include <android/log.h>
 #include <android/asset_manager.h>
@@ -44,6 +44,10 @@ Java_com_local_a3d_1reconstruction_1poc_Reconstructor_matchNative(JNIEnv *env, j
     }
     long size = AAsset_getLength(asset);
     //TODO:
+
+    openMVG::image::Image<unsigned char> imageL, imageR;
+    openMVG::image::ReadImage(a, &imageL);
+    openMVG::image::ReadImage(b, &imageR);
 
     env->ReleaseStringUTFChars(a_, a);
     env->ReleaseStringUTFChars(b_, b);
