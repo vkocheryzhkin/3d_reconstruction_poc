@@ -17,6 +17,37 @@ add_library( libopenMVG_matching SHARED IMPORTED )
 set_target_properties(libopenMVG_matching PROPERTIES IMPORTED_LOCATION
     $ENV{OPENMVG_ROOT}/lib/libopenMVG_matching.so )
 
+add_library( libopenMVG_geometry SHARED IMPORTED )
+set_target_properties(libopenMVG_geometry PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_geometry.so )
+
+
+add_library( libopenMVG_lInftyComputerVision SHARED IMPORTED )
+set_target_properties(libopenMVG_lInftyComputerVision PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_lInftyComputerVision.so )
+
+add_library( libopenMVG_sfm SHARED IMPORTED )
+set_target_properties(libopenMVG_sfm PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_sfm.so )
+
+add_library( libopenMVG_system SHARED IMPORTED )
+set_target_properties(libopenMVG_system PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_system.so )
+
+
+add_library( libopenMVG_lemon SHARED IMPORTED )
+set_target_properties(libopenMVG_lemon PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_lemon.so )
+
+add_library( libopenMVG_multiview SHARED IMPORTED )
+set_target_properties(libopenMVG_multiview PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_multiview.so )
+
+add_library( libopenMVG_linearProgramming SHARED IMPORTED )
+set_target_properties(libopenMVG_linearProgramming PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_linearProgramming.so )
+
+
 add_library( libopenMVG_stlplus SHARED IMPORTED )
 set_target_properties(libopenMVG_stlplus PROPERTIES IMPORTED_LOCATION
     $ENV{OPENMVG_ROOT}/lib/libopenMVG_stlplus.so )
@@ -93,6 +124,49 @@ add_custom_command(TARGET native-lib
         $ENV{OPENMVG_ROOT}/lib/libopenMVG_numeric.so
         ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a)
 
+add_custom_command(TARGET native-lib
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+        $ENV{OPENMVG_ROOT}/lib/libopenMVG_sfm.so
+        ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a)
+
+add_custom_command(TARGET native-lib
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+        $ENV{OPENMVG_ROOT}/lib/libopenMVG_geometry.so
+        ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a)
+
+add_custom_command(TARGET native-lib
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+        $ENV{OPENMVG_ROOT}/lib/libopenMVG_lInftyComputerVision.so
+        ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a)
+
+add_custom_command(TARGET native-lib
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+        $ENV{OPENMVG_ROOT}/lib/libopenMVG_system.so
+        ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a)
+
+add_custom_command(TARGET native-lib
+     POST_BUILD
+     COMMAND ${CMAKE_COMMAND} -E copy
+         $ENV{OPENMVG_ROOT}/lib/libopenMVG_lemon.so
+         ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a)
+
+add_custom_command(TARGET native-lib
+     POST_BUILD
+     COMMAND ${CMAKE_COMMAND} -E copy
+         $ENV{OPENMVG_ROOT}/lib/libopenMVG_multiview.so
+         ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a)
+
+add_custom_command(TARGET native-lib
+     POST_BUILD
+     COMMAND ${CMAKE_COMMAND} -E copy
+         $ENV{OPENMVG_ROOT}/lib/libopenMVG_linearProgramming.so
+         ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a)
+
+
 target_link_libraries( # Specifies the target library.
                        native-lib
 
@@ -107,6 +181,14 @@ target_link_libraries( # Specifies the target library.
                        libopenMVG_matching
                        libopenMVG_stlplus
                        libvlsift
+
+                       libopenMVG_sfm
+                       libopenMVG_geometry
+                       libopenMVG_lInftyComputerVision
+                       libopenMVG_system
+                       libopenMVG_lemon
+                       libopenMVG_multiview
+                       libopenMVG_linearProgramming
 
                        # Links the target library to the log library
                        # included in the NDK.
