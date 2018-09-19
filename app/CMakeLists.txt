@@ -5,6 +5,9 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+
+
+
 add_library( libopenMVG_image SHARED IMPORTED )
 set_target_properties(libopenMVG_image PROPERTIES IMPORTED_LOCATION
     $ENV{OPENMVG_ROOT}/lib/libopenMVG_image.so )
@@ -21,6 +24,9 @@ add_library( libopenMVG_geometry SHARED IMPORTED )
 set_target_properties(libopenMVG_geometry PROPERTIES IMPORTED_LOCATION
     $ENV{OPENMVG_ROOT}/lib/libopenMVG_geometry.so )
 
+add_library( libopenMVG_numeric SHARED IMPORTED )
+set_target_properties(libopenMVG_numeric PROPERTIES IMPORTED_LOCATION
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_numeric.so )
 
 add_library( libopenMVG_lInftyComputerVision SHARED IMPORTED )
 set_target_properties(libopenMVG_lInftyComputerVision PROPERTIES IMPORTED_LOCATION
@@ -34,7 +40,6 @@ add_library( libopenMVG_system SHARED IMPORTED )
 set_target_properties(libopenMVG_system PROPERTIES IMPORTED_LOCATION
     $ENV{OPENMVG_ROOT}/lib/libopenMVG_system.so )
 
-
 add_library( libopenMVG_lemon SHARED IMPORTED )
 set_target_properties(libopenMVG_lemon PROPERTIES IMPORTED_LOCATION
     $ENV{OPENMVG_ROOT}/lib/libopenMVG_lemon.so )
@@ -47,10 +52,9 @@ add_library( libopenMVG_linearProgramming SHARED IMPORTED )
 set_target_properties(libopenMVG_linearProgramming PROPERTIES IMPORTED_LOCATION
     $ENV{OPENMVG_ROOT}/lib/libopenMVG_linearProgramming.so )
 
-
-add_library( libopenMVG_stlplus SHARED IMPORTED )
+add_library( libopenMVG_stlplus STATIC IMPORTED )
 set_target_properties(libopenMVG_stlplus PROPERTIES IMPORTED_LOCATION
-    $ENV{OPENMVG_ROOT}/lib/libopenMVG_stlplus.so )
+    $ENV{OPENMVG_ROOT}/lib/libopenMVG_stlplus.a )
 
 add_library( libvlsift STATIC IMPORTED )
 set_target_properties(libvlsift PROPERTIES IMPORTED_LOCATION
@@ -91,8 +95,9 @@ find_library( # Sets the name of the path variable.
 
 target_include_directories(native-lib PRIVATE
                            $ENV{OPENMVG_ROOT}/include
+                           $ENV{OPENMVG_ROOT}/include/openMVG
+                           $ENV{OPENMVG_ROOT}/include/openMVG_dependencies/cereal/include
                            $ENV{OPENMVG_ROOT}/include/openMVG/third_party/eigen)
-
 
 add_custom_command(TARGET native-lib
     POST_BUILD
@@ -166,7 +171,6 @@ add_custom_command(TARGET native-lib
          $ENV{OPENMVG_ROOT}/lib/libopenMVG_linearProgramming.so
          ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a)
 
-
 target_link_libraries( # Specifies the target library.
                        native-lib
 
@@ -179,6 +183,7 @@ target_link_libraries( # Specifies the target library.
                        libopenMVG_image
                        libopenMVG_features
                        libopenMVG_matching
+                       libopenMVG_numeric
                        libopenMVG_stlplus
                        libvlsift
 
