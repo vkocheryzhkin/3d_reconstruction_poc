@@ -1,28 +1,28 @@
 #include <jni.h>
 #include <string>
 #include "openMVG/image/image_io.hpp"
-#include "openMVG/image/image_concat.hpp"
-#include "openMVG/features/akaze/image_describer_akaze.hpp"
-#include "openMVG/features/sift/SIFT_Anatomy_Image_Describer.hpp"
-#include "openMVG/features/svg_features.hpp"
-#include "openMVG/matching/regions_matcher.hpp"
-#include "openMVG/matching/svg_matches.hpp"
-#include "openMVG/cameras/Camera_Pinhole.hpp"
-#include "openMVG/sfm/pipelines/sfm_robust_model_estimation.hpp"
-#include "openMVG/multiview/triangulation.hpp"
-
-#include "openMVG/sfm/pipelines/sequential/sequential_SfM.hpp"
-#include "openMVG/sfm/pipelines/sfm_features_provider.hpp"
-#include "openMVG/sfm/pipelines/sfm_matches_provider.hpp"
+//#include "openMVG/image/image_concat.hpp"
+//#include "openMVG/features/akaze/image_describer_akaze.hpp"
+//#include "openMVG/features/sift/SIFT_Anatomy_Image_Describer.hpp"
+//#include "openMVG/features/svg_features.hpp"
+//#include "openMVG/matching/regions_matcher.hpp"
+//#include "openMVG/matching/svg_matches.hpp"
+//#include "openMVG/cameras/Camera_Pinhole.hpp"
+//#include "openMVG/sfm/pipelines/sfm_robust_model_estimation.hpp"
+//#include "openMVG/multiview/triangulation.hpp"
+//
+//#include "openMVG/sfm/pipelines/sequential/sequential_SfM.hpp"
+//#include "openMVG/sfm/pipelines/sfm_features_provider.hpp"
+//#include "openMVG/sfm/pipelines/sfm_matches_provider.hpp"
 #include "openMVG/sfm/sfm_data.hpp"
 #include "openMVG/sfm/sfm_data_io.hpp"
-#include "openMVG/sfm/sfm_report.hpp"
-#include "openMVG/sfm/sfm_view.hpp"
+//#include "openMVG/sfm/sfm_report.hpp"
+//#include "openMVG/sfm/sfm_view.hpp"
 
 //#include <cereal/archives/json.hpp>
-#include "openMVG/sfm/sfm_data_io_cereal.hpp"
-#include "openMVG/sfm/sfm_data_io.hpp"
-#include <cereal/archives/portable_binary.hpp>
+//#include "openMVG/sfm/sfm_data_io_cereal.hpp"
+//#include "openMVG/sfm/sfm_data_io.hpp"
+//#include <cereal/archives/portable_binary.hpp>
 
 #include <android/log.h>
 #include <android/asset_manager.h>
@@ -34,57 +34,57 @@
 #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO, TAG,__VA_ARGS__)
 #define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR, TAG,__VA_ARGS__)
 
-bool readIntrinsic(const std::string & fileName, openMVG::Mat3 & K)
-{
-    // Load the K matrix
-    std::ifstream in;
-    in.open( fileName.c_str(), std::ifstream::in);
-    if (in.is_open())  {
-        for (int j=0; j < 3; ++j)
-            for (int i=0; i < 3; ++i)
-                in >> K(j,i);
-    }
-    else  {
-        std::cerr << std::endl
-                  << "Invalid input K.txt file" << std::endl;
-        return false;
-    }
-    return true;
-}
-
-/// Export 3D point vector and camera position to PLY format
-bool exportToPly(const std::vector<openMVG::Vec3> & vec_points,
-                 const std::vector<openMVG::Vec3> & vec_camPos,
-                 const std::string & sFileName)
-{
-    std::ofstream outfile;
-    outfile.open(sFileName.c_str(), std::ios_base::out);
-
-    outfile << "ply"
-            << '\n' << "format ascii 1.0"
-            << '\n' << "element vertex " << vec_points.size()+vec_camPos.size()
-            << '\n' << "property float x"
-            << '\n' << "property float y"
-            << '\n' << "property float z"
-            << '\n' << "property uchar red"
-            << '\n' << "property uchar green"
-            << '\n' << "property uchar blue"
-            << '\n' << "end_header" << std::endl;
-
-    for (size_t i=0; i < vec_points.size(); ++i)  {
-        outfile << vec_points[i].transpose()
-                << " 255 255 255" << "\n";
-    }
-
-    for (size_t i=0; i < vec_camPos.size(); ++i)  {
-        outfile << vec_camPos[i].transpose()
-                << " 0 255 0" << "\n";
-    }
-    outfile.flush();
-    const bool bOk = outfile.good();
-    outfile.close();
-    return bOk;
-}
+//bool readIntrinsic(const std::string & fileName, openMVG::Mat3 & K)
+//{
+//    // Load the K matrix
+//    std::ifstream in;
+//    in.open( fileName.c_str(), std::ifstream::in);
+//    if (in.is_open())  {
+//        for (int j=0; j < 3; ++j)
+//            for (int i=0; i < 3; ++i)
+//                in >> K(j,i);
+//    }
+//    else  {
+//        std::cerr << std::endl
+//                  << "Invalid input K.txt file" << std::endl;
+//        return false;
+//    }
+//    return true;
+//}
+//
+///// Export 3D point vector and camera position to PLY format
+//bool exportToPly(const std::vector<openMVG::Vec3> & vec_points,
+//                 const std::vector<openMVG::Vec3> & vec_camPos,
+//                 const std::string & sFileName)
+//{
+//    std::ofstream outfile;
+//    outfile.open(sFileName.c_str(), std::ios_base::out);
+//
+//    outfile << "ply"
+//            << '\n' << "format ascii 1.0"
+//            << '\n' << "element vertex " << vec_points.size()+vec_camPos.size()
+//            << '\n' << "property float x"
+//            << '\n' << "property float y"
+//            << '\n' << "property float z"
+//            << '\n' << "property uchar red"
+//            << '\n' << "property uchar green"
+//            << '\n' << "property uchar blue"
+//            << '\n' << "end_header" << std::endl;
+//
+//    for (size_t i=0; i < vec_points.size(); ++i)  {
+//        outfile << vec_points[i].transpose()
+//                << " 255 255 255" << "\n";
+//    }
+//
+//    for (size_t i=0; i < vec_camPos.size(); ++i)  {
+//        outfile << vec_camPos[i].transpose()
+//                << " 0 255 0" << "\n";
+//    }
+//    outfile.flush();
+//    const bool bOk = outfile.good();
+//    outfile.close();
+//    return bOk;
+//}
 
 extern "C" JNIEXPORT jstring
 
@@ -113,16 +113,16 @@ Java_com_local_a3d_1reconstruction_1poc_Reconstructor_matchNative(JNIEnv *env, j
     }
     fclose(fp1);
 
-    try {
-        openMVG::sfm::SfM_Data data;
-        bool bStatus = openMVG::sfm::Load_Cereal<cereal::PortableBinaryInputArchive>(
-                data, sSfM_Data_Filename, openMVG::sfm::ESfM_Data(openMVG::sfm::VIEWS|openMVG::sfm::INTRINSICS));
-    }
-    catch (const std::exception & e)
-    {
-        LOGE("%s", e.what());
-        throw;
-    }
+//    try {
+//        openMVG::sfm::SfM_Data data;
+//        bool bStatus = openMVG::sfm::Load_Cereal<cereal::PortableBinaryInputArchive>(
+//                data, sSfM_Data_Filename, openMVG::sfm::ESfM_Data(openMVG::sfm::VIEWS|openMVG::sfm::INTRINSICS));
+//    }
+//    catch (const std::exception & e)
+//    {
+//        LOGE("%s", e.what());
+//        throw;
+//    }
 
 
 

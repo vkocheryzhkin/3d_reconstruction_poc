@@ -1,0 +1,3 @@
+[submodule "app/openMVG"]
+	path = app/openMVG
+	url = git@github.com:hoopoe/openMVG.git
