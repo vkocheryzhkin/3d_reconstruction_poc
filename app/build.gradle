@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            storeFile file('/Users/hoopoe/android.jks')
+            storeFile file('E:/Work/AndroidKey.jks')
             keyAlias 'key0'
             keyPassword 'test123321'
             storePassword 'test123321'
@@ -19,7 +19,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
-                cppFlags "-std=c++11 -frtti -fexceptions -fopenmp"
+                //cppFlags "-std=c++11 -frtti -fexceptions -fopenmp"
+                cppFlags "-std=c++11 -frtti -fexceptions"
                 abiFilters 'armeabi-v7a'
             }
         }

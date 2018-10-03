@@ -20,9 +20,9 @@
 //#include "openMVG/sfm/sfm_view.hpp"
 
 //#include <cereal/archives/json.hpp>
-//#include "openMVG/sfm/sfm_data_io_cereal.hpp"
-//#include "openMVG/sfm/sfm_data_io.hpp"
-//#include <cereal/archives/portable_binary.hpp>
+#include "openMVG/sfm/sfm_data_io_cereal.hpp"
+#include "openMVG/sfm/sfm_data_io.hpp"
+#include <cereal/archives/portable_binary.hpp>
 
 #include <android/log.h>
 #include <android/asset_manager.h>
@@ -113,16 +113,23 @@ Java_com_local_a3d_1reconstruction_1poc_Reconstructor_matchNative(JNIEnv *env, j
     }
     fclose(fp1);
 
-//    try {
-//        openMVG::sfm::SfM_Data data;
-//        bool bStatus = openMVG::sfm::Load_Cereal<cereal::PortableBinaryInputArchive>(
-//                data, sSfM_Data_Filename, openMVG::sfm::ESfM_Data(openMVG::sfm::VIEWS|openMVG::sfm::INTRINSICS));
-//    }
-//    catch (const std::exception & e)
-//    {
-//        LOGE("%s", e.what());
-//        throw;
-//    }
+    try {
+        openMVG::sfm::SfM_Data data;
+        bool bStatus = openMVG::sfm::Load_Cereal<cereal::PortableBinaryInputArchive>(
+                data, sSfM_Data_Filename, openMVG::sfm::ESfM_Data(openMVG::sfm::VIEWS|openMVG::sfm::INTRINSICS));
+
+//        openMVG::sfm::SfM_Data sfm_data;
+//        if (!Load(sfm_data, sSfM_Data_Filename, openMVG::sfm::ESfM_Data(openMVG::sfm::VIEWS|openMVG::sfm::INTRINSICS))) {
+//            LOGE("%s", "FAIL");
+//        } else{
+//            LOGI("%s", "SUCCESS");
+//        }
+    }
+    catch (const std::exception & e)
+    {
+        LOGE("%s", e.what());
+        throw;
+    }
 
 
 
