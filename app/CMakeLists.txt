@@ -65,21 +65,16 @@ message(STATUS ${ANDROID_ABI})
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
-#add_subdirectory(openMVG/src/third_party/zlib)
+
 include_directories($ENV{OPENMVG_ROOT}/include)
 include_directories($ENV{OPENMVG_ROOT}/include/openMVG)
-set(EIGEN_DIR C:/Work/3d_reconstruction_poc/app/openMVG/src/third_party/eigen)
-set(FLANN_DIR C:/Work/3d_reconstruction_poc/app/openMVG/src/third_party/flann/src/cpp/flann)
-set(COINUTILS_DIR C:/Work/3d_reconstruction_poc/app/openMVG/src/dependencies/osi_clp/CoinUtils/src)
-set(CLP_DIR C:/Work/3d_reconstruction_poc/app/openMVG/src/dependencies/osi_clp/Clp/src)
-set(OSI_DIR C:/Work/3d_reconstruction_poc/app/openMVG/src/dependencies/osi_clp/Osi/src/Osi)
-set(LEMON_DIR C:/Work/3d_reconstruction_poc/app/openMVG/src/third_party/lemon/lemon)
-#LEMON_DIR=/Users/hoopoe/Work/openMVGAndroid/src/third_party/lemon/lemon -DCMAKE_INSTALL_PREFIX=/Users/hoopoe/Work/openMVGAndroidInstalled . ../src
-#-DCOINUTILS_DIR=/Users/hoopoe/Work/openMVGAndroid/src/dependencies/osi_clp/CoinUtils/src
-# -DFLANN_DIR=/Users/hoopoe/Work/openMVGAndroid/src/third_party/flann/src/cpp/flann -DCOINUTILS_DIR=/Users/hoopoe/Work/openMVGAndroid/src/dependencies/osi_clp/CoinUtils/src -DCLP_DIR=/Users/hoopoe/Work/openMVGAndroid/src/dependencies/osi_clp/Clp/src -DOSI_DIR=/Users/hoopoe/Work/openMVGAndroid/src/dependencies/osi_clp/Osi/src/Osi -DLEMON_DIR=/Users/hoopoe/Work/openMVGAndroid/src/third_party/lemon/lemon -DCMAKE_INSTALL_PREFIX=/Users/hoopoe/Work/openMVGAndroidInstalled . ../src
+set(EIGEN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openMVG/src/third_party/eigen)
+set(FLANN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openMVG/src/third_party/flann/src/cpp/flann)
+set(COINUTILS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openMVG/src/dependencies/osi_clp/CoinUtils/src)
+set(CLP_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openMVG/src/dependencies/osi_clp/Clp/src)
+set(OSI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openMVG/src/dependencies/osi_clp/Osi/src/Osi)
+set(LEMON_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openMVG/src/third_party/lemon/lemon)
 add_subdirectory(openMVG/src)
-message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
-#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../openMVG/src ${CMAKE_CURRENT_BINARY_DIR}/A)
 
 add_library( # Sets the name of the library.
              native-lib
