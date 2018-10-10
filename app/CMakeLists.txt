@@ -76,6 +76,8 @@ set(OSI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openMVG/src/dependencies/osi_clp/Osi/src
 set(LEMON_DIR ${CMAKE_CURRENT_SOURCE_DIR}/openMVG/src/third_party/lemon/lemon)
 add_subdirectory(openMVG/src)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/openMVG/src/dependencies/cereal/include)
+
 add_library( # Sets the name of the library.
              native-lib
 
@@ -108,7 +110,8 @@ target_include_directories(native-lib PRIVATE
         #${CMAKE_CURRENT_SOURCE_DIR}/openMVG/src
            $ENV{OPENMVG_ROOT}/include
            $ENV{OPENMVG_ROOT}/include/openMVG
-           $ENV{OPENMVG_ROOT}/include/openMVG_dependencies/cereal/include
+           #$ENV{OPENMVG_ROOT}/include/openMVG_dependencies/cereal/include
+
            $ENV{OPENMVG_ROOT}/include/openMVG/third_party/eigen
         )
 #
@@ -211,6 +214,8 @@ target_link_libraries( # Specifies the target library.
                         openMVG_lemon
                         openMVG_multiview
                         openMVG_linearProgramming
+
+                        #cereal
 #                       libopenMVG_sfm
 #                       libopenMVG_geometry
 #                       libopenMVG_lInftyComputerVision

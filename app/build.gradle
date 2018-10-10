@@ -20,8 +20,10 @@ android {
         externalNativeBuild {
             cmake {
                 //cppFlags "-std=c++11 -frtti -fexceptions -fopenmp"
-                cppFlags "-std=c++11 -frtti -fexceptions"
-                abiFilters 'armeabi-v7a'
+                cppFlags "-std=c++11 -frtti -fexceptions -fopenmp"
+                abiFilters 'x86', 'armeabi-v7a'
+
+                //error: undefined reference to '__kmpc_global_thread_num' -> -fopenmp
             }
         }
     }
@@ -31,13 +33,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
+        debug {
+            jniDebuggable true
+        }
     }
     externalNativeBuild {
         cmake {
             path "CMakeLists.txt"
         }
     }
-    testBuildType "release"
+//    testBuildType "release"
     sourceSets {
         main {
             // let gradle pack the shared library into apk
@@ -57,5 +62,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
 }
